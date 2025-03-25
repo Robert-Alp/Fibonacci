@@ -1,6 +1,10 @@
-#Bubble sort
-tab =  [60, 9, 50, 3, 5, 2, 1]
+import random
 
+taille = 10  
+
+tab = [random.randint(1, 100) for _ in range(taille)]
+
+#Bubble sort
 print("Au début", tab)
 
 def bubble(tab):
@@ -15,18 +19,21 @@ def bubble(tab):
                     tab[j + 1] = max
     return tab
 
-print("Bubble sort: ", bubble(tab))
+print("Bubble sort: ", bubble(tab)) 
 
 
 #Selection Sort
 def selection(tab):
     size = len(tab)
 
-    l = None
-    currentMin = None
+    
     for i in range(size):
+        # print(f"---------{i}----------")
+        l = None
+        currentMin = None
         for j in range(i + 1, size):
-            if tab[j] < tab[i] and ((currentMin == None ) or (tab[j] < currentMin)):
+            # print(j)
+            if ( (tab[j] < tab[i]) and ((currentMin == None ) or (tab[j] < currentMin)) ):
                 currentMin = tab[j]
                 l = j
         if l != None:
@@ -34,9 +41,7 @@ def selection(tab):
             min = tab[l]
             tab[i] = min
             tab[l] = max
-        l = None
-        currentMin = None
-
+ 
     return tab
 
 
@@ -55,8 +60,6 @@ def instertion(tab):
 
     return tab
             
-            
-
 
 print("Selection sort: ", selection(tab))
 print("Insertion sort: ", instertion(tab))
