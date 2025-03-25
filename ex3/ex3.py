@@ -6,10 +6,7 @@ print("Au début", tab)
 def bubble(tab):
     size = len(tab)
     for i in range(size - 1):
-        print("------------------")
         for j in range(size - i):
-            # k = i + j
-            print(j)
             if j < size and j + 1 < size:
                 if tab[j] > tab[j + 1]:
                     max = tab[j]
