@@ -25,9 +25,6 @@ def measure_time(func, *args):
     return result, end - start
 
 
-
-
-
 n = int(input("Entrez un nombre pour générer la suite de Fibonacci : "))
 
 fib_list, time_list = measure_time(list, n)
