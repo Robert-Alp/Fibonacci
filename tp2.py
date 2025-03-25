@@ -24,11 +24,11 @@ def measure_time(func, *args):
     end = time.perf_counter()
     return result, end - start
 
+
+
+
+
 n = int(input("Entrez un nombre pour générer la suite de Fibonacci : "))
-
-
-
-
 
 fib_list, time_list = measure_time(list, n)
 fib_tuple, time_tuple = measure_time(tuple, fib_list)
