@@ -3,29 +3,26 @@ import pymongo
 import time
 from typing import List, Dict, Callable
 
-# Étape 1 : Récupération des données depuis l'API CoinGecko
 def fetch_data_from_api() -> List[Dict]:
     url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
-        # Extraction de 5 champs pertinents
+
         return [{"name": coin["name"], "symbol": coin["symbol"], "current_price": coin["current_price"],
                  "market_cap": coin["market_cap"], "total_volume": coin["total_volume"]} for coin in data]
     else:
         raise Exception(f"Erreur API : {response.status_code}")
 
-# Étape 2 : Stockage dans MongoDB
 def store_in_mongodb(data: List[Dict]) -> List[Dict]:
     client = pymongo.MongoClient("mongodb://localhost:27017/")
     db = client["crypto_db"]
     collection = db["coins"]
-    collection.drop()  # Réinitialiser la collection pour éviter les doublons
+    collection.drop()  
     result = collection.insert_many(data)
     print(f"Inserted {len(result.inserted_ids)} documents into MongoDB.")
-    return list(collection.find({}, {"_id": 0}))  # Récupérer sans l'_id
+    return list(collection.find({}, {"_id": 0}))  
 
-# Étape 3 : Algorithmes de tri
 def bubble_sort(data: List[Dict], key: str) -> List[Dict]:
     sorted_data = data.copy()
     n = len(sorted_data)
@@ -72,9 +69,8 @@ def time_and_sort(data: List[Dict], key: str, sort_func: Callable) -> tuple:
     start = time.perf_counter()
     sorted_data = sort_func(data, key)
     end = time.perf_counter()
-    return sorted_data, (end - start) * 1000  # Temps en millisecondes
+    return sorted_data, (end - start) * 1000 
 
-# Bonus : Filtrage des données
 def filter_data(data: List[Dict], key: str, operator: str, value: float) -> List[Dict]:
     if operator == ">":
         return [d for d in data if d[key] > value]
@@ -84,17 +80,14 @@ def filter_data(data: List[Dict], key: str, operator: str, value: float) -> List
         return [d for d in data if d[key] == value]
     return data
 
-# Étape 4 : Programme principal
 def main():
-    # Récupération des données
     print("Récupération des données depuis l'API...")
     api_data = fetch_data_from_api()
 
-    # Stockage dans MongoDB
+
     print("Stockage des données dans MongoDB...")
     data_from_db = store_in_mongodb(api_data)
 
-    # Choix du critère de tri
     sort_keys = ["current_price", "market_cap", "total_volume"]
     print("Champs disponibles pour le tri :", sort_keys)
     while True:
@@ -103,7 +96,6 @@ def main():
             break
         print("Critère invalide. Réessayez.")
 
-    # Bonus : Filtrage optionnel
     use_filter = input("Voulez-vous filtrer les données avant le tri ? (oui/non) : ").lower() == "oui"
     if use_filter:
         print("Opérateurs disponibles : >, <, ==")
@@ -113,7 +105,6 @@ def main():
         data_from_db = filter_data(data_from_db, filter_key, operator, value)
         print(f"Nombre de données après filtrage : {len(data_from_db)}")
 
-    # Test des algorithmes de tri
     sort_functions = {
         "Bubble Sort": bubble_sort,
         "Selection Sort": selection_sort,
@@ -129,7 +120,6 @@ def main():
         for entry in sorted_data[:5]:
             print(f"  {entry['name']} - {sort_key}: {entry[sort_key]}")
 
-    # Sélection de l'algorithme le plus rapide
     fastest = min(results, key=lambda x: results[x]["time"])
     print(f"\nL'algorithme le plus rapide est : {fastest} avec {results[fastest]['time']:.2f} ms")
 
