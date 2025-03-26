@@ -61,6 +61,16 @@ def instertion(tab):
     return tab
             
 
+# def partition(tab):
+    
+
+def quick(tab):
+    
+    size = len(tab)
+    if size < 2:
+        return tab
+    
+    
 print("Selection sort: ", selection(tab))
 print("Insertion sort: ", instertion(tab))
 

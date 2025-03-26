@@ -10,3 +10,6 @@ def min(tab):
     return minVal
 
 print(min(tab))
+
+
+# class BinaryTree:
