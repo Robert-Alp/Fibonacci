@@ -27,25 +27,61 @@ class Node:
             return node.next 
         node.next = self.remove(value, node.next) 
         return node
-        
+    
 
         
 
-node = Node(4, None)
+# node = Node(4, None)
 
 
-node.addValue(5, node)
-node.addValue(1, node)
-node.addValue(2, node)
-node.addValue(3, node)
-node.addValue(7, node)
-node.addValue(9, node)
+# node.addValue(5, node)
+# node.addValue(1, node)
+# node.addValue(2, node)
+# node.addValue(3, node)
+# node.addValue(7, node)
+# node.addValue(9, node)
 
 
 
-node.show(node)
+# node.show(node)
 
-node.remove(2, node)
-node.remove(2, node)
+# node.remove(2, node)
+# node.remove(2, node)
 
-node.show(node)
+# node.show(node)
+
+
+class BinaryTree:
+
+    def __init__(self, gauche: 'BinaryTree', droite: 'BinaryTree', value: int):
+        self.gauche = gauche
+        self.droite = droite
+        self.value = value
+
+
+
+
+
+
+def show( binaryTree: 'BinaryTree'):
+    if binaryTree == None:
+        return 
+    
+    print(binaryTree.value)
+    show(binaryTree.gauche) 
+    show(binaryTree.droite) 
+
+
+
+
+
+binaryTree = BinaryTree(None, None, 20)
+binaryTree.gauche = BinaryTree(None, None, 15)
+binaryTree.droite = BinaryTree(None, None, 25)
+
+
+
+
+show(binaryTree)
+
+    

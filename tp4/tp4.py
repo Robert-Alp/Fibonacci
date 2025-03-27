@@ -5,14 +5,15 @@ import time
 class NewsFetcher:
     def __init__(self, api_key):
         self.api_key = api_key
-        self.base_url = "https://newsapi.org/v2/top-headlines"
+        self.base_url = "https://newsapi.org/v2/everything"
 
-    def fetch_news(self, country="fr", page_size=5):
+    def fetch_news(self, q: str, countryCode="fr", page_size=10):
         try:
             params = {
-                "country": country,
+                "countryCode": countryCode,
                 "pageSize": page_size,
-                "apiKey": self.api_key
+                "apiKey": self.api_key,
+                "q": q
             }
             response = requests.get(self.base_url, params=params)
             if response.status_code == 200:
@@ -65,14 +66,22 @@ class NewsStack:
         return len(self.stack)
 
 def main():
-    API_KEY = "votre_clé_api_ici"
+    API_KEY = "7e0496ef5ae0418d88f4b2ade45b712e"
     news_fetcher = NewsFetcher(API_KEY)
+    # print(news_fetcher.fetch_news(q="tesla"))
     news_queue = NewsQueue()
     news_stack = NewsStack()
+    while True:
+        print("\n=== Gestion des Flux d'Actualités ===")
+        choice = input("Quel article voulez vous rechercher ? (exemple: telsa): ")
+        articles = news_fetcher.fetch_news(q=choice)
+        for article in articles:
+            news_queue.enqueue(article)
+        if len(articles) > 0:
+            print(articles)
 
-    articles = news_fetcher.fetch_news()
-    for article in articles:
-        news_queue.enqueue(article)
+            break
+        print("L'article est vide, recherchez un autre")
 
     while True:
         print("\n=== Gestion des Flux d'Actualités ===")
