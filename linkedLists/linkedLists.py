@@ -66,22 +66,22 @@ class BinaryTree:
 def show( binaryTree: 'BinaryTree'):
     if binaryTree == None:
         return 
-    
-    print(binaryTree.value)
     show(binaryTree.gauche) 
     show(binaryTree.droite) 
+    print(binaryTree.value)
 
 
 
 
 
-binaryTree = BinaryTree(None, None, 20)
-binaryTree.gauche = BinaryTree(None, None, 15)
-binaryTree.droite = BinaryTree(None, None, 25)
+binaryTree30 = BinaryTree(BinaryTree(BinaryTree(None, None, 15), BinaryTree(None, None, 25),20), BinaryTree(None, None, 35), 30)
+
+binaryTree70 = BinaryTree(BinaryTree(BinaryTree(BinaryTree(None, None, 45), None, 50), None, 60), BinaryTree(None, None, 80), 70)
 
 
+binaryTree40 = BinaryTree(binaryTree30, binaryTree70, 40)
 
 
-show(binaryTree)
+show(binaryTree40)
 
     
