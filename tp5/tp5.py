@@ -38,7 +38,6 @@ def arbre(tab, dict):
         return None
     
     tabCopy = tab.copy()
-    print(tabCopy)
     nodes = []
 
     while len(tabCopy) > 0:
@@ -77,18 +76,29 @@ def compresser(texte: str):
 
     tree = arbre(tableSorte, tabFrenquence)
 
-
     dictCode = {}
-
+    encode(tree, "", dictCode)
     code = ""
     for lettre in texte:
         code += dictCode[lettre]
 
     return (code, dictCode, tree)
 
+def decomprimer(tree: 'BinaryTree', code):
+    if tree == None or len(code) == 0:
+        return ""
+    if tree.gauche == None and tree.droite == None:
+        return tree.value
+    if code[0] == "0":
+        return decomprimer(tree.gauche, code[1:]) + decomprimer(tree.droite, code[1:])
+    if code[0] == "1":
+        return decomprimer(tree.droite, code[1:]) + decomprimer(tree.gauche, code[1:])
+
 
 code_binaire, dictionnaire, Tree = compresser("travaille")
 
 print("Code binaire", code_binaire)
 print("Dictionnaire", dictionnaire)
-print("Arbre", code_binaire, Tree)
+print("Arbre", Tree)
+
+print("Decomprimer", decomprimer(Tree, code_binaire))
