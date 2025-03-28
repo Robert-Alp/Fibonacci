@@ -6,7 +6,6 @@ class BinaryTree:
         self.value = value
 
 
-
 def prefixe( binaryTree: 'BinaryTree'):
     if binaryTree == None:
         return 
@@ -36,14 +35,20 @@ def search(value, binaryTree: 'BinaryTree') -> bool:
  
     return search(value, binaryTree.gauche) or search(value, binaryTree.droite)
 
+def height(node):
+    if (node == None) :
+        return -1
+    return 1 + max(height(node.gauche), height(node.droite))
+    
+
+
 binaryTree30 = BinaryTree(BinaryTree(BinaryTree(None, None, 15), BinaryTree(None, None, 25),20), BinaryTree(None, None, 35), 30)
 
 binaryTree70 = BinaryTree(BinaryTree(BinaryTree(BinaryTree(None, None, 45), None, 50), None, 60), BinaryTree(None, None, 80), 70)
 
-
 binaryTree40 = BinaryTree(binaryTree30, binaryTree70, 40)
 
 
-# prefixe(binaryTree40)
-
 print(search(45, binaryTree40))
+
+print(height(binaryTree40))

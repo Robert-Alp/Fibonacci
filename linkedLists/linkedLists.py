@@ -50,38 +50,3 @@ class Node:
 
 # node.show(node)
 
-
-class BinaryTree:
-
-    def __init__(self, gauche: 'BinaryTree', droite: 'BinaryTree', value: int):
-        self.gauche = gauche
-        self.droite = droite
-        self.value = value
-
-
-
-
-
-
-def show( binaryTree: 'BinaryTree'):
-    if binaryTree == None:
-        return 
-    show(binaryTree.gauche) 
-    show(binaryTree.droite) 
-    print(binaryTree.value)
-
-
-
-
-
-binaryTree30 = BinaryTree(BinaryTree(BinaryTree(None, None, 15), BinaryTree(None, None, 25),20), BinaryTree(None, None, 35), 30)
-
-binaryTree70 = BinaryTree(BinaryTree(BinaryTree(BinaryTree(None, None, 45), None, 50), None, 60), BinaryTree(None, None, 80), 70)
-
-
-binaryTree40 = BinaryTree(binaryTree30, binaryTree70, 40)
-
-
-show(binaryTree40)
-
-    
