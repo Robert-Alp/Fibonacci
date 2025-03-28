@@ -61,10 +61,23 @@ def arbre(tab, dict):
 
     return nodes[0]
     
+def encode(tree: 'BinaryTree', code: str, dict):
+    if tree == None:
+        return None
+    if not str(tree.value).isdigit():
+        dict[tree.value] = code
+        return True
+    encode(tree.gauche, code + "0", dict)
+    encode(tree.droite, code + "1", dict)
 
 
 tabFrenquence = frequence("travaille")
-print(tabFrenquence)
 tableSorte = bubbleSort(tabFrenquence)
 
-print(arbre(tableSorte, tabFrenquence))
+tree = arbre(tableSorte, tabFrenquence)
+
+print(tree)
+
+dictCode = {}
+print(encode(tree, "", dictCode))
+print(dictCode)
