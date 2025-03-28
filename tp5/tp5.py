@@ -70,14 +70,25 @@ def encode(tree: 'BinaryTree', code: str, dict):
     encode(tree.gauche, code + "0", dict)
     encode(tree.droite, code + "1", dict)
 
+def compresser(texte: str):
 
-tabFrenquence = frequence("travaille")
-tableSorte = bubbleSort(tabFrenquence)
+    tabFrenquence = frequence(texte)
+    tableSorte = bubbleSort(tabFrenquence)
 
-tree = arbre(tableSorte, tabFrenquence)
+    tree = arbre(tableSorte, tabFrenquence)
 
-print(tree)
 
-dictCode = {}
-print(encode(tree, "", dictCode))
-print(dictCode)
+    dictCode = {}
+
+    code = ""
+    for lettre in texte:
+        code += dictCode[lettre]
+
+    return (code, dictCode, tree)
+
+
+code_binaire, dictionnaire, Tree = compresser("travaille")
+
+print("Code binaire", code_binaire)
+print("Dictionnaire", dictionnaire)
+print("Arbre", code_binaire, Tree)
