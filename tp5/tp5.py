@@ -49,8 +49,6 @@ def arbre(tab, dict):
         if  len(tabCopy) == 1:
             lastElement = tabCopy.pop(0)
             nodes.append(BinaryTree(None, None, lastElement))
-    for i in nodes:
-        print(i)
 
     while len(nodes) > 1:
         if len(nodes) >= 2:
